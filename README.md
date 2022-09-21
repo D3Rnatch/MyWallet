@@ -2,8 +2,54 @@
 
 Application android de gestion de budget.
 
-## Cahier des charges complet :
+## Cahier des charges :
 > Tout ce que l'app devra pouvoir faire
+
+### Objectif
+L'application répond au besoin de suivre les évolutions de ses finances en permettant à un groupe de personne d'affecter des dépenses à des enveloppes (compte) de dépenses.
+
+### Spécifications
+> Cette section détaille le contenu des spécifications concernant la gestion des paiements.
+
+ Une *__dépense__* est définie par:
+ - Une catégorie ou un budget: *décrivant le type de dépense comme restaurant ou maison, faisant référence à un budget dans le compte*
+ - Un compte: *la dépense est directement affecté à un compte, elle n'existe pas sans cette information*
+ - Une personne: *La personne qui paye*
+ - Une date
+ - Un montant en euros
+
+
+ Un *__budget__* est défini par:
+ - Un nombre et un volume de dépenses en euros
+ - Une durée: *sur quelle période le budget est valable*
+ - Une cyclicité: *certains budgets ne sont valablee qu'une seule fois (travaux) mais d'autres peuvent simplement être remis à 0 tous les mois (budget bouffe)*
+ - Une date de début: *Un jour d'un mois, cette date servira de référence pour les budgets cycliques.*
+ - Un statut: *taux d'imputation du budget en % et en euros(volume total)*
+
+
+ Un *__compte__* est défini par:
+ - Un nombre de dépense (liste unitaire)
+ - Une liste de participants (différents utilisateur)
+ - Une dette entre utilisateur (donne l'écart en volume de dépense entre deux utilisateur du compte)
+
+
+*Les cases sont à cochées lorsqu'on aura couvert la fonctionalité.*
+- [ ] L'utilisateur doit pouvoir saisir/supprimer une dépense.
+      Lorsque l'utilisateur supprime un budget, les dépenses associées sont conservés (sans attribution).
+- [ ] L'utilisateur doit pouvoir modifier une dépense existante (tout est ouvert).
+- [ ] L'utilisateur doit pouvoir affecter la personne émettant la dépense.
+- [ ] L'utilisateur doit pouvoir créer/supprimer un compte ou un budget.
+      Lorsque l'utilisateur supprime un compte: les budgets et dépenses associées sont supprimés.
+- [ ] L'utilisateur doit pouvoir ajouter / supprimer des participants à un compte tant qu'aucune dépenses de ce participant n'est ajoutée.
+- [ ] L'application doit fournir un moyen d'exporter l'état d'un compte en CSV:
+      Sur une période donnée ou depuis le début.
+      Doit également contenir le détail des enveloppes de budget.
+- [ ] L'application doit pouvoir fournir des graphiques sur l'usage du compte:
+      *à définir plus précisemment - quelles informations on veut avoir là dessus*
+- [ ] L'application doit fournir un moyen de synchronisation des données entre tous les utilisateurs.
+
+
+====================== Proposé par Max ==========================
 
 1. Ajouter rapidement un nouveau paiement comprenant :
   
@@ -27,7 +73,7 @@ Application android de gestion de budget.
 6. Exportation en local ?
 7. Accès en ligne aux données (choisir si local ou non selon si wifi activé ou pas)
 
-
+====================================================================================
 
 ## Phase de dev :
 > Quel élément on développe quand
@@ -49,6 +95,7 @@ Partie préfinale : tout
 
 J'ai fait un draft, je sais pas si j'ai +/- tout rassemblé niveau cdc ?
 Voilàà xD
+=> J'ai repris ta proposition en consolidant un peu le truc et en précisant certains choses :). Les notions de court, moyen, long terme je suis pas fan parce que chaque budget a sa durée propre donc c'est difficile de concilier ça de façons "générique". Je te laisserai annoter / supprimer ce qui te plaît ou non!
 
 # Ressources :
 > Les sites pour savoir comment coder différentes fonctionnalités de l'appli ou pour le projet fin bref voila un truc de ressource quoi xD
