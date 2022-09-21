@@ -6,13 +6,19 @@ Application android de gestion de budget.
 > Tout ce que l'app devra pouvoir faire
 
 1. Ajouter rapidement un nouveau paiement comprenant :
-  Catégorie ; Compte ; Personne ; Intitulé ; Montant
+  
+  
   
   Catégorie : *Les paiements peuvent être regroupés en divers catégories configurable par l'utilisateur*
+  
   Compte : *L'utilisateur peut rajouter un compte qui est celui qui va ou a été utilisé pour payer*
+  
   Personne : *La personne qui paye [en cas de paiement regroupé]* <- là jsuis pas sûr que ce soit très clair
+  
   Intitulé : *Où / pourquoi / cadre*
+  
   Montant : *Le coût du paiement*
+  
   
 2. Avoir le choix entre divers comptes
 3. Pouvoir prévoir un budget sur une période de temps configurable mais de type "court terme"
@@ -43,3 +49,13 @@ Partie préfinale : tout
 
 J'ai fait un draft, je sais pas si j'ai +/- tout rassemblé niveau cdc ?
 Voilàà xD
+
+# Ressources :
+> Les sites pour savoir comment coder différentes fonctionnalités de l'appli ou pour le projet fin bref voila un truc de ressource quoi xD
+
+
+Pour faire un quicksetting (réglage icon en haut du volet déroulant) : https://developer.android.com/develop/ui/views/quicksettings-tiles
+Ajouter un id dans un menu de config (style 3 points verticaux) : https://stackoverflow.com/questions/13784088/setting-popupmenu-menu-items-programmatically
+Faire un input dans une notification : https://stackoverflow.com/questions/43983505/android-notification-user-input
+Exporter en .csv en java : https://www.baeldung.com/java-csv
+
