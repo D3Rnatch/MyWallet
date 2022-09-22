@@ -8,8 +8,8 @@ Application android de gestion de budget.
 ### Objectif
 L'application répond au besoin de suivre les évolutions de ses finances en permettant à un groupe de personne d'affecter des dépenses à des enveloppes (compte) de dépenses.
 
-### Spécifications
-> Cette section détaille le contenu des spécifications concernant la gestion des paiements.
+### Définitions
+> Cette section donne quelques définitions générales utiles à la compréhension des autres sections.
 
  Une *__dépense__* est définie par:
  - Une catégorie ou un budget: *décrivant le type de dépense comme restaurant ou maison, faisant référence à un budget dans le compte*
@@ -33,6 +33,9 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
  - Une dette entre utilisateur (donne l'écart en volume de dépense entre deux utilisateur du compte)
 
 
+### Gestion des comptes de dépenses
+> Cette section détaille la façons dont doivent être gérée les dépenses.
+
 *Les cases sont à cochées lorsqu'on aura couvert la fonctionalité.*
 - [ ] L'utilisateur doit pouvoir saisir/supprimer une dépense.
       Lorsque l'utilisateur supprime un budget, les dépenses associées sont conservés (sans attribution).
@@ -41,12 +44,29 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
 - [ ] L'utilisateur doit pouvoir créer/supprimer un compte ou un budget.
       Lorsque l'utilisateur supprime un compte: les budgets et dépenses associées sont supprimés.
 - [ ] L'utilisateur doit pouvoir ajouter / supprimer des participants à un compte tant qu'aucune dépenses de ce participant n'est ajoutée.
+- [ ] L'application doit permettre à l'utilisateur de définir le profil utilisateur par défaut pour chaque compte (gain de temps lors de la saisie, la possibilité d'affecter une dépense au titre de quelqu'un d'autre est toujours possible).
+- [ ] L'application doit permettre de changer qui le profil par défaut.
+- [ ] L'application doit pouvoir fournir des graphiques sur l'usage du compte:
+      *à définir plus précisemment - quelles informations on veut avoir là dessus*
+
+### Export
+> Cette section détailles les spécifications liés à l'export des données et les compatibilités avec des logiciels tiers.
+
 - [ ] L'application doit fournir un moyen d'exporter l'état d'un compte en CSV:
       Sur une période donnée ou depuis le début.
       Doit également contenir le détail des enveloppes de budget.
-- [ ] L'application doit pouvoir fournir des graphiques sur l'usage du compte:
-      *à définir plus précisemment - quelles informations on veut avoir là dessus*
-- [ ] L'application doit fournir un moyen de synchronisation des données entre tous les utilisateurs.
+
+
+### Connectivité
+> Cette section détaille le contenu des spécifications concernant la gestion de la synchronisation.
+
+- [ ] L'application doit pouvoir fonctionner avec et sans configuration serveur de synchronisation.
+- [ ] L'application doit fournir un moyen de synchronisation des données entre tous les utilisateurs d'un même compte.
+- [ ] La synchronisation n'est pas obligatoire et ne se fera que lorsqu'une connexion Wifi est disponible.
+- [ ] L'application doit pouvoir fournir un moyen de configurer un serveur pour l'application:
+      - Adresse IP, Port, etc...
+- [ ] L'application doit permettre à différents utilisateurs de se connecter au même compte sans avoir à recréer un compte localement.
+
 
 
 ====================== Proposé par Max ==========================
