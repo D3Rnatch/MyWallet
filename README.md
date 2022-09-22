@@ -108,6 +108,14 @@ Partie préfinale : tout
 ### Activités :
 > définition de chaque activité, de leur fonctionnement interne et externe / intéraction entre elles et avec l'extérieur / affectation à quelle étape du projet
 
+1. Visualisation dépenses et budget
+2. Ajout/Modification d'une dépense à un compte existant
+3. Ajout/Modification d'un compte
+4. Liste des comptes
+5. Configuration Appli
+6. Export données
+7. Visualisation données du compte
+
 
 ## Autres idées :
 
