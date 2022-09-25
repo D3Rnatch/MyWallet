@@ -118,6 +118,8 @@ Partie préfinale : tout
 
 ### Diagramme :
 
+#### Fonctionnement global
+
 ```mermaid
    stateDiagram-v2
 state "Activité principale" as a1
@@ -130,7 +132,7 @@ if2-->a2 : vrai
 if2-->a4 : faux
 state "Alerte : connexion / création" as a2
 state "Alerte : création en local" as a4
-   
+state "Affichage de tout les statuts / boutons" as a3   
    
 ```
 
@@ -138,6 +140,8 @@ state "Alerte : création en local" as a4
 https://mermaid-js.github.io/mermaid/#/stateDiagram?id=states
 https://mermaid.live/
 
+
+#### Diagramme précis : UML
 
 ## Autres idées :
 
