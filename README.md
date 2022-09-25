@@ -118,9 +118,9 @@ Partie préfinale : tout
 
 ### Diagramme :
 
-mermaid
- stateDiagram-v2
-  s1 --> s2 : test
+
+stateDiagram-v2
+ s1 --> s2 : test
 
 
 ## Autres idées :
