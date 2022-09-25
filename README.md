@@ -134,3 +134,11 @@ Ajouter un id dans un menu de config (style 3 points verticaux) : https://stacko
 Faire un input dans une notification : https://stackoverflow.com/questions/43983505/android-notification-user-input
 Exporter en .csv en java : https://www.baeldung.com/java-csv
 
+Tutoriels mise en place navigation entre activité: 
+ https://www.answertopia.com/jetpack-compose/a-jetpack-compose-navigation-tutorial/ (Comprendre l'usage du NavHostController)
+ https://developer.android.com/guide/navigation/navigation-getting-started#kts
+
+ViewModels in Android:
+(Le but: avoir une abstraction entre l'UI et la donnée de contexte liée au live. Cette abstraction fera office d'interface vers la DB permettant de conserver une vue "plus réactive")
+ https://developer.android.com/topic/libraries/architecture/viewmodel
+ 
