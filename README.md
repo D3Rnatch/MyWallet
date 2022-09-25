@@ -118,9 +118,25 @@ Partie préfinale : tout
 
 ### Diagramme :
 
+```mermaid
+   stateDiagram-v2
+state "Activité principale" as a1
+state if1 <<choice>>
+state if2 <<choice>>
+a1-->if1 : si connecté
+if1-->a3 : vrai
+if1-->if2 : faux \n connecté à internet ?
+if2-->a2 : vrai
+if2-->a4 : faux
+state "Alerte : connexion / création" as a2
+state "Alerte : création en local" as a4
+   
+   
+```
 
-stateDiagram-v2
- s1 --> s2 : test
+
+https://mermaid-js.github.io/mermaid/#/stateDiagram?id=states
+https://mermaid.live/
 
 
 ## Autres idées :
