@@ -6,7 +6,7 @@ Application android de gestion de budget.
 > Tout ce que l'app devra pouvoir faire
 
 ### Objectif
-L'application répond au besoin de suivre les évolutions de ses finances en permettant à un groupe de personne d'affecter des dépenses à des enveloppes (compte) de dépenses.
+L'application répond au besoin de suivre les évolutions de ses finances en permettant à un groupe de personne d'affecter des dépenses à des enveloppes (compte) de dépenses. */===== ...les évolutions passées et avenir ? =====/*
 
 ### Définitions
 > Cette section donne quelques définitions générales utiles à la compréhension des autres sections.
@@ -17,6 +17,8 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
  - Une personne: *La personne qui paye*
  - Une date
  - Un montant en euros
+
+ Une *__recette__* est défini de la même manière qu'une dépense.
 
 
  Un *__budget__* est défini par:
@@ -31,28 +33,41 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
  - Un nombre de dépense (liste unitaire)
  - Une liste de participants (différents utilisateur)
  - Une dette entre utilisateur (donne l'écart en volume de dépense entre deux utilisateur du compte)
+ 
+ 
+ Un *__investissement__* est défini par:
+ *Il s'agit d'un achat futur, définissable sur plusieurs période de temps en amont, permettant ainsi de l'étaler sur plusieurs période d'un même budget*
+ > Hérite d'une dépense ; la date est celle de l'achat prévisionnel, au moment du paiement.
+ - Une période de temps: *période de paiement*
+ - Un nombre de paiement: *le nombre de fois qu'il sera en partie payé*
+ - Un statut: *état du paiement ; si payé ou pas ; si en parti payé*
+ *=/==== cette objet ne prend pas en compte la possibilité d'un paiement irrégulier sur des dates irrégulières ====/=*
+ 
 
 
 ### Gestion des comptes de dépenses
 > Cette section détaille la façons dont doivent être gérée les dépenses.
 
 *Les cases sont à cochées lorsqu'on aura couvert la fonctionalité.*
-- [ ] L'utilisateur doit pouvoir saisir/supprimer une dépense.
+- [ ] 1.1 L'utilisateur doit pouvoir saisir/supprimer une dépense ou une recette.
       Lorsque l'utilisateur supprime un budget, les dépenses associées sont conservés (sans attribution).
-- [ ] L'utilisateur doit pouvoir modifier une dépense existante (tout est ouvert).
-- [ ] L'utilisateur doit pouvoir affecter la personne émettant la dépense.
-- [ ] L'utilisateur doit pouvoir créer/supprimer un compte ou un budget.
-      Lorsque l'utilisateur supprime un compte: les budgets et dépenses associées sont supprimés.
-- [ ] L'utilisateur doit pouvoir ajouter / supprimer des participants à un compte tant qu'aucune dépenses de ce participant n'est ajoutée.
-- [ ] L'application doit permettre à l'utilisateur de définir le profil utilisateur par défaut pour chaque compte (gain de temps lors de la saisie, la possibilité d'affecter une dépense au titre de quelqu'un d'autre est toujours possible).
-- [ ] L'application doit permettre de changer qui le profil par défaut.
-- [ ] L'application doit pouvoir fournir des graphiques sur l'usage du compte:
+- [ ] 1.2 L'utilisateur doit pouvoir ajouter une dépense ou une recette d'une manière très rapide.
+- [ ] 1.3 L'utilisateur doit pouvoir modifier une dépense ou une recette existante (tout est ouvert).
+- [ ] 1.4 L'utilisateur doit pouvoir affecter la personne émettant la dépense ou une recette. */===== comment on le gère si on met une autre personne ? =====/*
+- [ ] 1.5 L'utilisateur doit pouvoir créer/supprimer un compte ou un budget.
+      Lorsque l'utilisateur supprime un compte: les budgets et dépenses associées sont supprimés. *\===== ou archivé ? =====\*
+- [ ] 1.6 L'utilisateur doit pouvoir ajouter / supprimer des participants à un compte tant qu'aucune dépenses de ce participant n'est ajoutée. *\===== sauf si la balance de différence entre tous les participants est à 0 =====\*
+- [ ] 1.7 L'application doit permettre à l'utilisateur de définir le profil utilisateur par défaut pour chaque compte (gain de temps lors de la saisie, la possibilité d'affecter une dépense au titre de quelqu'un d'autre est toujours possible).
+- [ ] 1.8 L'application doit permettre de changer qui le profil par défaut. *\===== qui ? =====\*
+- [ ] 1.9 L'application doit pouvoir fournir des graphiques sur l'usage du compte : consommation sur le budget par catégorie ; dépassement global du budget sur plusieurs période (en fct du budget) ; sur plusieurs projet long termes, voir le temps d'aboutissement ; analyses multi-comptes ou mono-compte ; *etc*
       *à définir plus précisemment - quelles informations on veut avoir là dessus*
+- [ ] 1.10 L'utilisateur doit pouvoir créer/supprimer/modifier un investissement.
+- [ ] 1.11 L'application doit demander à un utilisateur si l'investissement a été réalisé.
 
 ### Export
 > Cette section détailles les spécifications liés à l'export des données et les compatibilités avec des logiciels tiers.
 
-- [ ] L'application doit fournir un moyen d'exporter l'état d'un compte en CSV:
+- [ ] 2.1 L'application doit fournir un moyen d'exporter l'état d'un compte en CSV:
       Sur une période donnée ou depuis le début.
       Doit également contenir le détail des enveloppes de budget.
 
@@ -60,47 +75,21 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
 ### Connectivité
 > Cette section détaille le contenu des spécifications concernant la gestion de la synchronisation.
 
-- [ ] L'application doit pouvoir fonctionner avec et sans configuration serveur de synchronisation.
-- [ ] L'application doit fournir un moyen de synchronisation des données entre tous les utilisateurs d'un même compte.
-- [ ] La synchronisation n'est pas obligatoire et ne se fera que lorsqu'une connexion Wifi est disponible.
-- [ ] L'application doit pouvoir fournir un moyen de configurer un serveur pour l'application:
+- [ ] 3.1 L'application doit pouvoir fonctionner avec et sans configuration serveur de synchronisation.
+- [ ] 3.2 L'application doit fournir un moyen de synchronisation des données entre tous les utilisateurs d'un même compte.
+- [ ] 3.3 La synchronisation n'est pas obligatoire et ne se fera que lorsqu'une connexion Wifi est disponible.
+- [ ] 3.4 L'application doit pouvoir fournir un moyen de configurer un serveur pour l'application:
       - Adresse IP, Port, etc...
-- [ ] L'application doit permettre à différents utilisateurs de se connecter au même compte sans avoir à recréer un compte localement.
+- [ ] 3.5 L'application doit permettre à différents utilisateurs de se connecter au même compte sans avoir à recréer un compte localement.
 
 
-
-====================== Proposé par Max ==========================
-
-1. Ajouter rapidement un nouveau paiement comprenant :
-  
-  
-  
-  Catégorie : *Les paiements peuvent être regroupés en divers catégories configurable par l'utilisateur*
-  
-  Compte : *L'utilisateur peut rajouter un compte qui est celui qui va ou a été utilisé pour payer*
-  
-  Personne : *La personne qui paye [en cas de paiement regroupé]* <- là jsuis pas sûr que ce soit très clair
-  
-  Intitulé : *Où / pourquoi / cadre*
-  
-  Montant : *Le coût du paiement*
-  
-  
-2. Avoir le choix entre divers comptes
-3. Pouvoir prévoir un budget sur une période de temps configurable mais de type "court terme"
-4. Pouvoir prévoir un budget sur une période de temps configurable mais de type "long terme" et "moyen terme"
-5. Analyser différentes données avec des graphiques ou autre
-6. Exportation en local ?
-7. Accès en ligne aux données (choisir si local ou non selon si wifi activé ou pas)
-
-====================================================================================
 
 ## Phase de dev :
 > Quel élément on développe quand
 
-Partie basique : Etape 1 et le stockage des données
-Partie intermédiraire : 1. ; 2. ; 3. ; 6.
-Partie préfinale : tout
+Partie basique : 1.1 ; 1.2 ; 1.3 ; 1.4 ; 1.5 ; 1.6
+Partie intermédiraire : 1. ; 2.1 ?
+Partie préfinale : 1. ; 2. ; 3.
 
 
 ## Structure de l'application :
@@ -108,13 +97,16 @@ Partie préfinale : tout
 ### Activités :
 > définition de chaque activité, de leur fonctionnement interne et externe / intéraction entre elles et avec l'extérieur / affectation à quelle étape du projet
 
-1. Visualisation dépenses et budget
+1. Accueil et visualisation dépenses et budget
 2. Ajout/Modification d'une dépense à un compte existant
 3. Ajout/Modification d'un compte
 4. Liste des comptes
 5. Configuration Appli
 6. Export données
 7. Visualisation données du compte
+
+Hors ; - Widget : Ajout d'une dépense ou d'une recette et vu partielle de la balance ou d'un budget choisi, le tout pour un compte
+       - QuickSetting : Ajout d'une dépense ou d'une recette
 
 ### Diagramme :
 
