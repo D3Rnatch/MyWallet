@@ -116,6 +116,12 @@ Partie préfinale : tout
 6. Export données
 7. Visualisation données du compte
 
+### Diagramme :
+
+mermaid
+ stateDiagram-v2
+  s1 --> s2 : test
+
 
 ## Autres idées :
 
