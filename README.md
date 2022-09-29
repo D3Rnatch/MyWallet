@@ -113,7 +113,7 @@ Hors ; - Widget : Ajout d'une dépense ou d'une recette et vu partielle de la ba
 #### Fonctionnement global
 
 ```mermaid
-   sstateDiagram-v2
+   stateDiagram-v2
 state Main_Activity {
     [*] --> a1
     state if1 <<choice>>
