@@ -113,18 +113,49 @@ Hors ; - Widget : Ajout d'une dépense ou d'une recette et vu partielle de la ba
 #### Fonctionnement global
 
 ```mermaid
-   stateDiagram-v2
-state "Activité principale" as a1
-state if1 <<choice>>
+   sstateDiagram-v2
+state Main_Activity {
+    [*] --> a1
+    state if1 <<choice>>
 state if2 <<choice>>
 a1-->if1 : si connecté
 if1-->a3 : vrai
 if1-->if2 : faux \n connecté à internet ?
 if2-->a2 : vrai
 if2-->a4 : faux
-state "Alerte : connexion / création" as a2
+state "Alerte : connexion / création d'un compte" as a2
 state "Alerte : création en local" as a4
-state "Affichage de tout les statuts / boutons" as a3   
+state "Affichage de tout les statuts / boutons" as a3
+a2-->a3
+a2-->a4
+a4-->a3
+a3-->[*]
+state "Paramètres" as a8
+}
+state Paiement_Activity {
+    [*]-->a9
+    state "Voir le détail des paiements" as a9
+    state "Modifier une dépense" as a9
+    state "Ajouter un nouveau paiement" as a9
+    state "Afficher la balance" as a9
+
+    state "Gérer le budget" as a10
+    state "Gérer les comptes" as a11
+}
+state Comptes_Activity {
+    [*]-->a12
+
+    state "Ajouter un compte" as a12
+    state "Modifier un compte" as a12
+
+}
+
+
+
+[*]-->Main_Activity
+Main_Activity-->Paiement_Activity
+Main_Activity-->Comptes_Activity
+Paiement_Activity-->Comptes_Activity  
    
 ```
 
@@ -139,9 +170,12 @@ https://mermaid.live/
 
 # Commentaire :
 
-J'ai fait un draft, je sais pas si j'ai +/- tout rassemblé niveau cdc ?
+Max : J'ai fait un draft, je sais pas si j'ai +/- tout rassemblé niveau cdc ?
 Voilàà xD
-=> J'ai repris ta proposition en consolidant un peu le truc et en précisant certains choses :). Les notions de court, moyen, long terme je suis pas fan parce que chaque budget a sa durée propre donc c'est difficile de concilier ça de façons "générique". Je te laisserai annoter / supprimer ce qui te plaît ou non!
+
+Alex : => J'ai repris ta proposition en consolidant un peu le truc et en précisant certains choses :). Les notions de court, moyen, long terme je suis pas fan parce que chaque budget a sa durée propre donc c'est difficile de concilier ça de façons "générique". Je te laisserai annoter / supprimer ce qui te plaît ou non!
+
+Max : J'ai rajouté quelques trucs, n'hésite pas si c'est flou ou l'inverse. J'ai rajouté un diagramme/début de en gros comment pourrait s'agencer tout ça :) | Effectivement court-moyen-long terme c'est pas précis xD.
 
 # Ressources :
 > Les sites pour savoir comment coder différentes fonctionnalités de l'appli ou pour le projet fin bref voila un truc de ressource quoi xD
