@@ -175,7 +175,7 @@ Voilàà xD
 
 Alex : => J'ai repris ta proposition en consolidant un peu le truc et en précisant certains choses :). Les notions de court, moyen, long terme je suis pas fan parce que chaque budget a sa durée propre donc c'est difficile de concilier ça de façons "générique". Je te laisserai annoter / supprimer ce qui te plaît ou non!
 
-Max : J'ai rajouté quelques trucs, n'hésite pas si c'est flou ou l'inverse. J'ai rajouté un diagramme/début de en gros comment pourrait s'agencer tout ça :) | Effectivement court-moyen-long terme c'est pas précis xD.
+Max : J'ai rajouté quelques trucs, n'hésite pas si c'est flou ou l'inverse. J'ai rajouté un diagramme/début de en gros comment pourrait s'agencer tout ça :) | Effectivement court-moyen-long terme c'est pas précis xD. J'avoue le cahier des charges comme ça c'est beaucoup plus clair eheh xD.
 
 # Ressources :
 > Les sites pour savoir comment coder différentes fonctionnalités de l'appli ou pour le projet fin bref voila un truc de ressource quoi xD
