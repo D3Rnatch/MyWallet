@@ -41,7 +41,7 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
  - Une période de temps: *période de paiement*
  - Un nombre de paiement: *le nombre de fois qu'il sera en partie payé*
  - Un statut: *état du paiement ; si payé ou pas ; si en parti payé*
- *=/==== cette objet ne prend pas en compte la possibilité d'un paiement irrégulier sur des dates irrégulières ====/=*
+ *=/==== cet objet ne prend pas en compte la possibilité d'un paiement irrégulier sur des dates irrégulières ====/=*
  
 
 
@@ -53,12 +53,14 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
       Lorsque l'utilisateur supprime un budget, les dépenses associées sont conservés (sans attribution).
 - [ ] 1.2 L'utilisateur doit pouvoir ajouter une dépense ou une recette d'une manière très rapide.
 - [ ] 1.3 L'utilisateur doit pouvoir modifier une dépense ou une recette existante (tout est ouvert).
-- [ ] 1.4 L'utilisateur doit pouvoir affecter la personne émettant la dépense ou une recette. */===== comment on le gère si on met une autre personne ? =====/*
+- [ ] 1.4 L'utilisateur doit pouvoir affecter la personne émettant la dépense ou une recette. 
+          (note: il s'agit uniquement d'un flag, lorsqu'on rejoint un compte on crée soit une nouvelle personne soit on indique qui l'on est (appli locale par rapport à la configuration du compte).
 - [ ] 1.5 L'utilisateur doit pouvoir créer/supprimer un compte ou un budget.
-      Lorsque l'utilisateur supprime un compte: les budgets et dépenses associées sont supprimés. *\===== ou archivé ? =====\*
-- [ ] 1.6 L'utilisateur doit pouvoir ajouter / supprimer des participants à un compte tant qu'aucune dépenses de ce participant n'est ajoutée. *\===== sauf si la balance de différence entre tous les participants est à 0 =====\*
+      Lorsque l'utilisateur supprime un compte: les budgets et dépenses associées sont soit supprimés soit archivés.
+- [ ] 1.6 L'utilisateur doit pouvoir ajouter / supprimer des participants à un compte. Ce faisant toutes les dépenses effectuées par celui-ci sont supprimés.
 - [ ] 1.7 L'application doit permettre à l'utilisateur de définir le profil utilisateur par défaut pour chaque compte (gain de temps lors de la saisie, la possibilité d'affecter une dépense au titre de quelqu'un d'autre est toujours possible).
-- [ ] 1.8 L'application doit permettre de changer qui le profil par défaut. *\===== qui ? =====\*
+- [ ] 1.8 L'application doit permettre de changer qui est le profil d'utilisateur par défaut sur chaque compte pour chaque appareil connecté au compte.
+          C'est à dire que lorsqu'on rejoint un compte on puisse indiquer à l'application qui cet appareil représente, permettant de pré-assigner la dépense ou la recette.
 - [ ] 1.9 L'application doit pouvoir fournir des graphiques sur l'usage du compte : consommation sur le budget par catégorie ; dépassement global du budget sur plusieurs période (en fct du budget) ; sur plusieurs projet long termes, voir le temps d'aboutissement ; analyses multi-comptes ou mono-compte ; *etc*
       *à définir plus précisemment - quelles informations on veut avoir là dessus*
 - [ ] 1.10 L'utilisateur doit pouvoir créer/supprimer/modifier un investissement.
@@ -81,7 +83,7 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
 - [ ] 3.4 L'application doit pouvoir fournir un moyen de configurer un serveur pour l'application:
       - Adresse IP, Port, etc...
 - [ ] 3.5 L'application doit permettre à différents utilisateurs de se connecter au même compte sans avoir à recréer un compte localement.
-
+- [ ] 3.6 Lorsque deux utilisateurs cherchent à synchroniser les différents comptes, une résolution de conflits peut avoir lieu. Dans ce cas la modification la plus récente est préférrée. L'application doit indiquer qu'un conflit a eu lieu sur la dépense.
 
 
 ## Phase de dev :
@@ -90,6 +92,10 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
 Partie basique : 1.1 ; 1.2 ; 1.3 ; 1.4 ; 1.5 ; 1.6
 Partie intermédiraire : 1. ; 2.1 ?
 Partie préfinale : 1. ; 2. ; 3.
+
+A faire et à remplir ici: https://trello.com/b/iHcPBIoF/mywallet
+@Max => faut que tu crées un compte :).
+On fera du Kanban, on s'emmerde pas mais juste on tient à jour le statut histoire qu'on se perde pas.
 
 
 ## Structure de l'application :
