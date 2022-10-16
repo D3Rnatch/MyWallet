@@ -55,6 +55,7 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
 - [ ] 1.3 L'utilisateur doit pouvoir modifier une dépense ou une recette existante (tout est ouvert).
 - [ ] 1.4 L'utilisateur doit pouvoir affecter la personne émettant la dépense ou une recette. 
           (note: il s'agit uniquement d'un flag, lorsqu'on rejoint un compte on crée soit une nouvelle personne soit on indique qui l'on est (appli locale par rapport à la configuration du compte).
+- [ ] 1.12 L'application doit permettre de segmenter une dépense en plusieurs sous dépenses pour affecter les sous-dépenses à différentes enveloppes budgétaires. Ceci permettrait d'une part de faire le lien avec la dépense dans le compte en banque de l'utilisateur mais également de ne pas s'y limiter, car dans nos courses chacun peut aller prendre des éléments pour la maison mais également de la bouffe.
 - [ ] 1.5 L'utilisateur doit pouvoir créer/supprimer un compte ou un budget.
       Lorsque l'utilisateur supprime un compte: les budgets et dépenses associées sont soit supprimés soit archivés.
 - [ ] 1.6 L'utilisateur doit pouvoir ajouter / supprimer des participants à un compte. Ce faisant toutes les dépenses effectuées par celui-ci sont supprimés.
