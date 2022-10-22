@@ -33,7 +33,13 @@ In addition, it pushes to apps the updated datas.
 Android App to control all content over its accounts.
 
 ## MyWalletApp Architecture
-Proposition draft:
+To perform all of its tasks successfully, the App will be using Android's ViewModel due to their persistancy.
+Each ViewModel will have access to:
+- Data-Write object (Sync): either cache the changes locally into the DB and, if server is reachable, push them directly to the Server.
+- Data-Read object (DataAccess): reads local database and provides all the reads methods to fetch content from the database.
+
+*Note: Sync and DataAccess may be declined in different objects to respect the SOLID design approach.
+This diagram only provides an idea of the different layers we migth have.*
 
 ``` mermaid
 classDiagram
