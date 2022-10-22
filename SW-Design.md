@@ -57,6 +57,11 @@ classDiagram
     DataAccess --> SQLiteDB
 ```
 
+OR directly:
+https://firebase.google.com/docs/database
+Performs perfectly the server job. => No Server left at all simply a firebase realtime database.
+
+
 ## MyWalletServer Architecture
 
 ## Com interface
