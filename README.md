@@ -56,7 +56,7 @@ L'application répond au besoin de suivre les évolutions de ses finances en per
 - [ ] 1.4 L'utilisateur doit pouvoir affecter la personne émettant la dépense ou une recette. 
           (note: il s'agit uniquement d'un flag, lorsqu'on rejoint un compte on crée soit une nouvelle personne soit on indique qui l'on est (appli locale par rapport à la configuration du compte).
 - [ ] 1.12 L'application doit permettre de segmenter une dépense en plusieurs sous dépenses pour affecter les sous-dépenses à différentes enveloppes budgétaires. Ceci permettrait d'une part de faire le lien avec la dépense dans le compte en banque de l'utilisateur mais également de ne pas s'y limiter, car dans nos courses chacun peut aller prendre des éléments pour la maison mais également de la bouffe.
-- [ ] 1.5 L'utilisateur doit pouvoir créer/supprimer un compte ou un budget.
+- [ ] 1.5 L'utilisateur doit pouvoir créer/supprimer un compte ou un budget. *ou un sous-budget ?*
       Lorsque l'utilisateur supprime un compte: les budgets et dépenses associées sont soit supprimés soit archivés.
 - [ ] 1.6 L'utilisateur doit pouvoir ajouter / supprimer des participants à un compte. Ce faisant toutes les dépenses effectuées par celui-ci sont supprimés.
 - [ ] 1.7 L'application doit permettre à l'utilisateur de définir le profil utilisateur par défaut pour chaque compte (gain de temps lors de la saisie, la possibilité d'affecter une dépense au titre de quelqu'un d'autre est toujours possible).
@@ -95,8 +95,8 @@ Partie intermédiraire : 1. ; 2.1 ?
 Partie préfinale : 1. ; 2. ; 3.
 
 A faire et à remplir ici: https://trello.com/b/iHcPBIoF/mywallet
-@Max => faut que tu crées un compte :).
-On fera du Kanban, on s'emmerde pas mais juste on tient à jour le statut histoire qu'on se perde pas.
+@Max => faut que tu crées un compte :). (le lien il marche pas xD)
+On fera du Kanban, on s'emmerde pas mais juste on tient à jour le statut histoire qu'on se perde pas. ouai jpense c'est pas mal pcq  sinon c bourbier ahah
 
 
 ## Structure de l'application :
@@ -183,6 +183,8 @@ Voilàà xD
 Alex : => J'ai repris ta proposition en consolidant un peu le truc et en précisant certains choses :). Les notions de court, moyen, long terme je suis pas fan parce que chaque budget a sa durée propre donc c'est difficile de concilier ça de façons "générique". Je te laisserai annoter / supprimer ce qui te plaît ou non!
 
 Max : J'ai rajouté quelques trucs, n'hésite pas si c'est flou ou l'inverse. J'ai rajouté un diagramme/début de en gros comment pourrait s'agencer tout ça :) | Effectivement court-moyen-long terme c'est pas précis xD. J'avoue le cahier des charges comme ça c'est beaucoup plus clair eheh xD.
+
+Max : J'ai rajouté un plan de sous-catégorie en plus pour que ce soit plus simple à ranger
 
 # Ressources :
 > Les sites pour savoir comment coder différentes fonctionnalités de l'appli ou pour le projet fin bref voila un truc de ressource quoi xD
