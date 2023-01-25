@@ -105,12 +105,12 @@ On fera du Kanban, on s'emmerde pas mais juste on tient à jour le statut histoi
 > définition de chaque activité, de leur fonctionnement interne et externe / intéraction entre elles et avec l'extérieur / affectation à quelle étape du projet
 
 1. Accueil et visualisation dépenses et budget
-2. Ajout/Modification d'une dépense à un compte existant
-3. Ajout/Modification d'un compte
-4. Liste des comptes
-5. Configuration Appli
-6. Export données
-7. Visualisation données du compte
+   Ajout/Modification d'une dépense à un compte existant
+2. Ajout/Modification d'un compte
+   Liste des comptes
+3. Configuration Appli
+4. Export données
+5. Visualisation données du compte
 
 Hors ; - Widget : Ajout d'une dépense ou d'une recette et vu partielle de la balance ou d'un budget choisi, le tout pour un compte
        - QuickSetting : Ajout d'une dépense ou d'une recette
@@ -166,6 +166,25 @@ Paiement_Activity-->Comptes_Activity
    
 ```
 
+```mermaid
+   stateDiagram-v2
+
+state "MA.CheckAccount" as ca
+state "Manage_Accounts" as mgt
+state "Visualize_Account" as dsp
+state "Visualize_Data" as vw
+
+
+[*]-->ca
+ca-->mgt : no account configured
+ca-->dsp : w/ account configured
+mgt-->ca 
+dsp-->vw 
+vw-->dsp 
+dsp-->mgt
+
+
+```
 
 https://mermaid-js.github.io/mermaid/#/stateDiagram?id=states
 https://mermaid.live/
