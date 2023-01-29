@@ -10,14 +10,15 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import model.Account;
 import viewmodels.AppConfigViewModel;
 
 public class MainActivity extends AppCompatActivity {
-
     AppConfigViewModel mConfig;
     Button mJoinAccountActivity;
     Button mCreateAccountActivity;
@@ -26,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> mJoinResult;
     ActivityResultLauncher<Intent> mCreateResult;
     ActivityResultLauncher<Intent> mDisplayResult;
-
-    private enum ActivityRequestCode {
-        JOIN_ACTIVITY,
-        CREATE_ACTIVITY,
-        DISPLAY_ACTIVITY
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             // Here, no request code
                             Intent data = result.getData();
+                            mConfig.addAccount((Account)data.getExtras().get("message_return"));
                             refreshUI();
                         }
                     }
@@ -115,19 +111,20 @@ public class MainActivity extends AppCompatActivity {
     private void switchToCreateActivity()
     {
         Intent switchActivityIntent = new Intent(this, CreateAccountActivity.class);
-        mJoinResult.launch(switchActivityIntent);
+        mCreateResult.launch(switchActivityIntent);
     }
 
     private void switchToDisplayActivity()
     {
         Intent switchActivityIntent = new Intent(this, DisplayAccountActivity.class);
-        mJoinResult.launch(switchActivityIntent);
+        mDisplayResult.launch(switchActivityIntent);
     }
 
     private void refreshUI()
     {
         mDisplayAccountActivity.setEnabled(mConfig.hasAccount());
         if(mConfig.hasAccount())
+
         {
             mAccountStatus.setText("Continue on " + mConfig.getAccount().getValue().getAccountId());
         }
