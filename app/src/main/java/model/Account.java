@@ -19,8 +19,11 @@ public class Account implements Serializable {
     private List<String> mParticipants = new ArrayList<String>();
 
     public void addParticipant(String usr){
-        Log.d("Test", "##################### " + usr);
         mParticipants.add(usr);
+    }
+
+    public void setParticipants(List<String> participants){
+        mParticipants = participants;
     }
 
     public List<String> getParticipants() {
@@ -33,6 +36,10 @@ public class Account implements Serializable {
 
     public List<String> getBudgets() {
         return mBudgets;
+    }
+
+    public void setBudgets(List<String> budgets){
+        mBudgets = budgets;
     }
 
     public void setAccountId(String id){

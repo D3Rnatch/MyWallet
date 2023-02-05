@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                             // Here, no request code
                             Intent data = result.getData();
                             mConfig.addAccount((Account)data.getExtras().get("message_return"));
+                            mConfig.save(getPreferences(Context.MODE_PRIVATE));
+
                             refreshUI();
                         }
                     }
@@ -99,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        mConfig.load(getPreferences(Context.MODE_PRIVATE));
         refreshUI();
     }
 
@@ -126,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         if(mConfig.hasAccount())
 
         {
+
             mAccountStatus.setText("Continue on " + mConfig.getAccount().getValue().getAccountId());
         }
         else
