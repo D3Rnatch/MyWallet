@@ -1,32 +1,37 @@
 package model;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Account implements Serializable {
     private String mAccountId = new String();
-    private String mBudgets = new String(); // Envelops to which expenses are affected (name, color)
-    private String mParticipants = new String(); // List of active participants to the account.
+    private List<String> mBudgets = new ArrayList<String>(); // Envelops to which expenses are affected (name, color)
+    private List<String> mParticipants = new ArrayList<String>();
 
     public void addParticipant(String usr){
-        mParticipants = (usr);
+        Log.d("Test", "##################### " + usr);
+        mParticipants.add(usr);
     }
 
-    public String getParticipants() {
+    public List<String> getParticipants() {
         return mParticipants;
     }
 
     public void addBudget(String name, String color){
-        mBudgets = name;
+        mBudgets.add(name);
     }
 
-    public String getBudgets() {
+    public List<String> getBudgets() {
         return mBudgets;
     }
 
@@ -40,16 +45,16 @@ public class Account implements Serializable {
     private  void readObject(ObjectInputStream ois)
             throws IOException, ClassNotFoundException {
 
-        mAccountId = ois.readUTF() ;
-        mParticipants= ois.readUTF();
-        mBudgets= ois.readUTF();
+        mAccountId = ois.readUTF();
+        mParticipants = (List<String>) ois.readObject();
+        mBudgets= (List<String>) ois.readObject();
     }
 
     private  void writeObject(ObjectOutputStream oos)
             throws IOException {
         oos.writeUTF(mAccountId);
-        oos.writeUTF(mParticipants);
-        oos.writeUTF(mBudgets);
+        oos.writeObject(mParticipants);
+        oos.writeObject(mBudgets);
     }
 
 }
