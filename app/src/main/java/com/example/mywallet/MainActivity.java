@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                             // Here, no request code
                             Intent data = result.getData();
                             mConfig.addAccount((Account)data.getExtras().get("message_return"));
-                            mConfig.save(getPreferences(Context.MODE_PRIVATE));
+                            mConfig.save();
 
                             refreshUI();
                         }
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        mConfig.load(getPreferences(Context.MODE_PRIVATE));
+        mConfig.load(getSharedPreferences(mConfig.PreferencesName, Context.MODE_PRIVATE));
         refreshUI();
     }
 

@@ -17,16 +17,23 @@ import model.Account;
 
 public class AppConfigViewModel extends ViewModel
 {
-    private MutableLiveData<Account> mAccount=new MutableLiveData<>(new Account());
-
     private static final String AccountNameKey = "storage_key_account_name";
     private static final String AccountParticipantsKey = "storage_key_account_participants";
     private static final String AccountBudgetsKey = "storage_key_account_budgets";
 
-    public void save(SharedPreferences sharedPref)
+    // Public members
+    public static final String PreferencesName = "AppConfig";
+
+
+    // Private members
+    private MutableLiveData<Account> mAccount=new MutableLiveData<>(new Account());
+    private SharedPreferences mInternalPreferences; /// Provided at first load.
+
+
+    public void save()
     {
         Gson gson = new Gson();
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = mInternalPreferences.edit();
         editor.putString(AccountNameKey, mAccount.getValue().getAccountId());
         editor.putString(AccountParticipantsKey, gson.toJson(mAccount.getValue().getParticipants()));
         editor.putString(AccountBudgetsKey, gson.toJson(mAccount.getValue().getBudgets()));
@@ -35,7 +42,7 @@ public class AppConfigViewModel extends ViewModel
 
     public void load(SharedPreferences sharedPref)
     {
-
+        mInternalPreferences = sharedPref;
         mAccount.getValue().setAccountId(sharedPref.getString(AccountNameKey, ""));
 
         Gson gson = new Gson();
