@@ -1,75 +1,71 @@
-<template>
-  <v-container class="fill-height">
-    <v-responsive class="d-flex align-center text-center fill-height">
-      <v-img height="300" src="@/assets/logo.svg" />
-
-      <div class="text-body-2 font-weight-light mb-n1">Welcome to</div>
-
-      <h1 class="text-h2 font-weight-bold">Vuetify</h1>
-
-      <div class="py-14" />
-
-      <v-row class="d-flex align-center justify-center">
-        <v-col cols="auto">
-          <v-btn
-            href="https://vuetifyjs.com/components/all/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
-            <v-icon
-              icon="mdi-view-dashboard"
-              size="large"
-              start
-            />
-
-            Components
-          </v-btn>
-        </v-col>
-
-        <v-col cols="auto">
-          <v-btn
-            color="primary"
-            href="https://vuetifyjs.com/introduction/why-vuetify/#feature-guides"
-            min-width="228"
-            rel="noopener noreferrer"
-            size="x-large"
-            target="_blank"
-            variant="flat"
-          >
-            <v-icon
-              icon="mdi-speedometer"
-              size="large"
-              start
-            />
-
-            Get Started
-          </v-btn>
-        </v-col>
-
-        <v-col cols="auto">
-          <v-btn
-            href="https://community.vuetifyjs.com/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
-            <v-icon
-              icon="mdi-account-group"
-              size="large"
-              start
-            />
-
-            Community
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-responsive>
-  </v-container>
-</template>
 
 <script setup lang="ts">
-  //
+    import { ref } from 'vue'
+    import { reactive } from 'vue'
+    import ExpensesModel from "../model/ExpensesMdl"
+    import ExpenseItem from "../model/ExpensesMdl"
+
+    const emit = defineEmits<{(e: 'deleteRequest', item: ExpenseItem): void }>()
+
+    const model = reactive(new ExpensesModel());
+    const headers= ref([
+          { title: 'Category', key: 'category' },
+          { title: 'Date', key: 'date' },
+          { title: 'Description', key: 'description' },
+          { title: 'Amount (€)', key: 'amount' },
+          { title: 'User', key: 'user'},
+          { title: 'Action', key: ''}
+        ]);
+  
+    function getColor(amount:number) {
+      if(amount < 0.) return "red"
+      else if(amount >= 0. ) return "green"
+    }
+
+
+    function deleteItem(item:ExpenseItem){
+    }
+
+    function rowClick(item:any, row:any) {      
+      row.select(true);
+      //item.name - selected id
+    }
+
 </script>
+
+
+<template>
+  <v-data-table
+    :headers="headers"
+    :items="model.getItems()"
+    item-key="name"
+    class="elevation-1"
+    items-per-page="-1"
+
+    @click:row="rowClick"
+    hide-default-footer
+    hover
+    single-select
+    >
+
+
+
+    <template v-slot:item.amount="{ item }">
+      <v-chip :color="getColor(item.raw.amount)">
+        {{ item.raw.amount }}
+      </v-chip>
+    </template>
+
+    <template v-slot:item.category="{ item }">
+      <v-chip :color="item.raw.category.color">
+        {{ item.raw.category.title }}
+      </v-chip>
+    </template>
+  </v-data-table>
+</template>
+
+<style>
+  tr.v-data-table__selected {
+    background: #7d92f5 !important;
+  }
+</style>
