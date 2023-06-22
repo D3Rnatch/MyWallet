@@ -1,20 +1,80 @@
 <template>
   <v-app>
-    <v-main>
-      <UIExpenseDetail ref="detail" :expenseItem='expenseItm.item' :categories="model.categories" :users="model.users" @save-changes="itemUpdated" @delete-item="itemDeleted"/>
-      <UIExpenseList @edit-item="onEditItem"/>
+    <v-toolbar color="primary">
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-toolbar-title>Account Name</v-toolbar-title>
+    </v-toolbar>
+    <v-layout>
+      <v-navigation-drawer
+        expand-on-hover
+        rail
+      >
+        <v-list>
+          <v-list-item
+            prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
+            title="My Fancy Account"
+          ></v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list density="compact" nav>
+          <v-list-item prepend-icon="mdi-folder" title="Account" value="myfiles"></v-list-item>
+          <v-list-item prepend-icon="mdi-account-multiple" title="Account dashboard" value="shared"></v-list-item>
+          <v-list-item prepend-icon="mdi-star" title="Export" value="starred"></v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <v-main>
+        <UIAccount />
+<!--
+        <v-layout>
+        </v-layout>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-title>
+            Edit Expenses
+          </v-expansion-panel-title>
+          <v-expansion-panel-text>
+            <template v-slot:default>
+              <UIExpenseDetail :expenseItem='expenseItm.item' :categories="model.categories" :users="model.users" @save-changes="itemUpdated" @delete-item="itemDeleted"/>
+            </template>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+
+      </v-expansion-panels> -->
     </v-main>
+    </v-layout>
   </v-app>
 </template>
 
 <script setup lang="ts">
-  import UIExpenseList from '@/components/UIExpenseList.vue'
-  import UIExpenseDetail from '@/components/UIExpenseDetail.vue'
+  import UIAccount from '@/screens/UIAccount.vue'
   import { ExpenseCategory, ExpenseChild, ExpenseItem } from "@/model/ExpensesMdl"
-  import { reactive, watch } from 'vue'
+  import { ExpensesLogic } from '@/model/ExpensesLogic'
+  import { reactive, ref } from 'vue'
   import { useExpenseModelStore } from '@/stores/Stores'
 
   const model = useExpenseModelStore().expenseModel
+
+
+  const drawer = ref(false)
+  const items = ref([{
+    title:'Expense List',
+    value:'expense_list'
+  },
+  {
+    title:'Add Expense',
+    value:'add_expense'
+  },
+  {
+    title:'Account Summary',
+    value:'account_summary'
+  },
+  {
+    title:'Account parameters',
+    value:'account_parameters'
+  } ])
 
   let users = [
     "me",
@@ -38,35 +98,33 @@
 
   console.log("Init has generated " + model.users.length + "users and " + model.categories.length + " categories")
 
+  let logic = new ExpensesLogic()
+
   for(let i=0; i < 10; ++i)
   {
-    let exp = new ExpenseItem(-130, "Some basic description", "2023/10/12", cat1, users[0], i);
+    let exp = new ExpenseItem();
+    logic.setItem(exp)
+
+    exp.description = "Some basic description"
+    exp.date="2023/10/12"
+    exp.user = users[0]
+    exp.id = i
+
     for(let j=i; j<3; ++j)
     {
         let chd = new ExpenseChild()
         chd.category = cat1
         chd.amount = -30 + (1*j)
-        exp.addChildExpense(chd)
+        logic.addChildExpense(chd)
     }
     model.items.push(exp)
   }
 
   const expenseItm = reactive({ item: model.items[0]})
 
-
-
   function itemUpdated(item:ExpenseItem)
   {
-
-    /*for(let i=0; i < model.items.length; ++i)
-    {
-        if(model.items[i].id === item.id)
-        {
-          model.items[i] = item
-          break;
-        }
-    }*/
-        // callback function returning the boolean value
+    // callback function returning the boolean value
     function callback_func(object: ExpenseItem): boolean 
     {
         // if the object color is green, return true; otherwise, return false for a particular object element
@@ -80,23 +138,20 @@
     let searched_obj: number | undefined = model.items.findIndex(callback_func);
 
     model.items[searched_obj] = item
+    state.value = Direction.List
   }
 
   function onEditItem(index:number)
   {
-    console.log("Edit the property item prev " + expenseItm.item.id)
     expenseItm.item = model.items[index]
-    console.log("Edit the property item after " + expenseItm.item.id)
+    state.value = Direction.Add
   }
 
   function itemDeleted(item:ExpenseItem)
   {
     model.items = model.items.filter(obj => item.id !== obj.id)
+    state.value = Direction.List
   }
 
-
-  watch(expenseItm, (itm) => {
-    console.log("Has changed itm " + expenseItm.item.id)
-  })
 
 </script>

@@ -1,166 +1,221 @@
-<script setup lang="ts">
-    import { ref, PropType, watch, reactive } from 'vue'
-    import { ExpenseItem, ExpenseCategory, ExpenseChild, cloneable } from "../model/ExpensesMdl"
+<script lang="ts">
+    import { PropType, defineComponent } from 'vue'
+    import { ExpenseItem, ExpenseChild, ExpenseCategory, cloneable } from "../model/ExpensesMdl"
+    import { ExpensesLogic } from "../model/ExpensesLogic"
+import { logicalExpression, moduleExpression } from '@babel/types'
 
-
-
-    const props = defineProps({
-            expenseItem: {type: ExpenseItem}
-            , categories: Object as PropType<ExpenseCategory[]>
-            , users: Object as PropType<string[]>
-    })
-
-    const emit = defineEmits<{
-            (e: 'save-changes', item: ExpenseItem): void,
-            (e: 'delete-item', item: ExpenseItem): void
-    }>()
-
-
-    console.log("Entering Setup")
-
-    const date = new Date();
-
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    let isoDate = year + "/" + month + "/" + day
-
-    let expenseItem = new ExpenseItem(0, "", isoDate, props.categories[0], props.users[0], -1)
-    if(props.expenseItem)
+    enum EditStates
     {
-      expenseItem = props.expenseItem.dupplicate()
+      Create,
+      Edit
     }
 
-    const localItem = reactive({ item:expenseItem});
-    const removeItemButtonEnabled = ref(false)
-    const totalAmount = ref(localItem.item.getTotalAmount())
+    let itemLogic:ExpensesLogic = new ExpensesLogic()
 
-    removeItemButtonEnabled.value = (localItem.item.child.length > 1)
+    export default defineComponent({
 
-    watch(localItem, (item) => {
-      localItem.item.refreshTotalAmount()
-      totalAmount.value = localItem.item.getTotalAmount()
-    })
+      name: "ExpenseDetailWidget",
 
-    /// When binded props changes, force to update internal value
-    watch(props, (item) => {
-      localItem.item = props.expenseItem.dupplicate()
-      removeItemButtonEnabled.value = (localItem.item.child.length > 1)
-    })
+      // type inference enabled
+      props: {
+        categories: Object as PropType<ExpenseCategory[]>,
+        users: Object as PropType<string[]>
+      },
 
-    function onSave() {
-      localItem.item.refreshTotalAmount()
-      let save:ExpenseItem = cloneable.deepCopy(localItem.item)
-      emit('save-changes', save)
-    }
+      emits: {
+        saveChanges(item: ExpenseItem, addition: boolean) { 
+          return true 
+        },
+        deleteItem(item: ExpenseItem) { 
+          return true 
+        },
+        cancel() { 
+          return true 
+        }
+      },
 
-    function onDelete() {
-      let save:ExpenseItem = cloneable.deepCopy(localItem.item)
-      emit('delete-item', save)
-    }
+      methods: {
 
-    function onAddChild(){
-      let child = new ExpenseChild()
-      child.category = props.categories[0]
-      localItem.item.addChildExpense(child)
-      removeItemButtonEnabled.value = true
-    }
+        // Method to open in creation state.
+        createItem(){
+          let expItm = new ExpenseItem()
+          itemLogic.setItem(expItm)
+          let child = new ExpenseChild()
+          if(this.categories)
+          {
+            child.category = cloneable.deepCopy(this.categories[0])
+            itemLogic.addChildExpense(child)
+          }
 
-    function onRemoveChild(index:number){
-      localItem.item.removeChildExpense(index)
-      if(localItem.item.child.length === 1){
-        removeItemButtonEnabled.value = false
+          this.expenseItem = expItm
+          this.state = EditStates.Create
+        },
+
+        // Method to open in edition state.
+        editItem(item:ExpenseItem){
+          this.expenseItem = item
+          itemLogic.setItem(this.expenseItem)
+          this.state = EditStates.Edit
+        },
+
+        onSave() {
+          let isCreate = (this.state === EditStates.Create)
+
+          if(isCreate)
+          {
+            this.expenseItem.date = new Date().toDateString()
+          }
+
+          itemLogic.updateTotalAmount()
+          let save = cloneable.deepCopy(this.expenseItem) as ExpenseItem
+          this.$emit('saveChanges', save, (isCreate))
+        },
+
+        onDelete() {
+          let remove = cloneable.deepCopy(this.expenseItem) as ExpenseItem
+          this.$emit('deleteItem', remove)
+        },
+
+        onAddChild(){
+          let child = new ExpenseChild()
+          if(this.categories)
+          {
+            child.category = cloneable.deepCopy(this.categories[0])
+            itemLogic.addChildExpense(child)
+          }
+        },
+
+        onRemoveChild(index:number){
+          itemLogic.removeChildExpense(index)
+        },
+
+        onCancel(){
+          this.$emit('cancel')
+        },
+      },
+
+      data() {
+        return {
+          state: EditStates.Create,
+          expenseItem: new ExpenseItem()
+        }
+      },
+
+      computed: {
+        totalAmount() {
+          let num:number = 0
+          for(let item of this.expenseItem.child){
+              num = (num + item.amount)
+          }
+          return num
+        },
+
+        removeItemButtonEnabled() {
+          return (this.expenseItem.child.length > 1)
+        },
+        
+        enableDeleteItem() {
+          return (this.state === EditStates.Edit)
+        }
+      },
+
+      mounted() {
+        // Do nothing
       }
-    }
-
+  })
 </script>
 
 <template>
-  <v-card class="mx-auto" elevation="5" density="compact" min-width="500" max-width="600">
-    <v-card-title>
-      Expense Details
-    </v-card-title>
-    <v-card-item>
-      <v-container fluid>
-        <v-row>
-          <v-col align-self="auto">
-                <v-select
-                  label="User"
-                  v-model="localItem.item.user"
-                  :items="props.users"
-                  return-object
-                  single-line
-                  hint="User"
-                ></v-select>
-          </v-col>
-          <v-col align-self="auto">
-            <v-text-field
-                  :rules="[
-                    value => !!value || 'Required.',
-                    ]"
-                  hide-details="auto"
-                  v-model="localItem.item.description"
-                  label="Description"
-                > </v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col align-self="center">
-            <v-label>Total amount of the expense: {{totalAmount}} €</v-label>
-          </v-col>
-          <v-col>
+      <v-toolbar>
+            <v-btn icon @click="onCancel()">
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
             <v-spacer></v-spacer>
-          </v-col>
-          <v-col >
-              <v-btn icon="mdi-plus" @click="onAddChild()"></v-btn>
-          </v-col>
-        </v-row>
+
+            <v-btn icon @click="onSave()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+
+            <v-btn icon  @click="onDelete()" :disabled="!enableDeleteItem">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+      </v-toolbar>
+        <v-container fluid>
+          <v-row>
+            <v-col align-self="auto">
+                  <v-select
+                    label="User"
+                    v-model="expenseItem.user"
+                    :items="users"
+                    return-object
+                    single-line
+                    hint="User"
+                  ></v-select>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col align-self="auto">
+              <v-text-field
+                    :rules="[
+                      value => !!value || 'Required.',
+                      ]"
+                    hide-details="auto"
+                    v-model="expenseItem.description"
+                    label="Description"
+                  > </v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col align-self="center">
+              <v-label>Total amount of the expense: {{expenseItem.totalAmount}} €</v-label>
+            </v-col>
+            <v-col>
+              <v-spacer></v-spacer>
+            </v-col>
+            <v-col >
+                <v-btn icon="mdi-plus" @click="onAddChild()"></v-btn>
+            </v-col>
+          </v-row>
         </v-container>
         <v-sheet
           border="md"
           color="#f3f3f3"
           rounded
         >
-          <v-container>
-            <v-row v-for="(item, index) of localItem.item.child">
-              <v-col align-self="end" cols="6">
-                <v-select
-                    label="Category"
-                    v-model="item.category"
-                    :items="props.categories"
-                    return-object
-                    single-line
-                  >
-                  <template v-slot:selection="{item}">
-                    <v-chip :color="item.raw.color">
-                      {{item.raw.title}}
-                    </v-chip>
-                  </template>
-                </v-select>
-              </v-col>
-              
-              <v-col align-self="auto" cols="4">
-                <v-text-field
-                  :rules="[
+        <v-container>
+          <v-row v-for="(item, index) of expenseItem.child">
+            <v-col align-self="end" cols="6">
+              <v-select
+                  label="Category"
+                  v-model="item.category"
+                  :items="categories"
+                  return-object
+                  single-line
+                >
+                <template v-slot:selection="{item}">
+                  <v-chip :color="item.raw.color">
+                    {{item.raw.title}}
+                  </v-chip>
+                </template>
+              </v-select>
+            </v-col>
+            
+            <v-col align-self="auto" cols="4">
+              <v-text-field
+                :rules="[
                   value => !!value || 'Required.',
-                  ]"
-                  hide-details="auto"
-                  v-model.number="item.amount"
-                  prefix="€"
-                  label="amount"
-                  type="number"
-                ></v-text-field>
-              </v-col>
-              <v-col align-self="auto">
-                <v-btn icon="mdi-delete" @click="onRemoveChild(index)" :disabled="!removeItemButtonEnabled"></v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-sheet>        
-    </v-card-item>
-    <v-card-actions>
-      <v-btn icon="mdi-content-save-all" @click="onSave()"></v-btn>
-      <v-btn icon="mdi-delete" @click="onDelete()"></v-btn>
-    </v-card-actions>
-  </v-card>
+                ]"
+                hide-details="auto"
+                v-model.number="item.amount"
+                prefix="€"
+                label="amount"
+                type="number"
+              ></v-text-field>
+            </v-col>
+            <v-col class="d-flex align-center justify-center mb-6">
+              <v-btn icon="mdi-delete" density="compact" @click="onRemoveChild(index)" :disabled="!removeItemButtonEnabled"></v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-sheet>
 </template>

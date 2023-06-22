@@ -20,95 +20,21 @@ export class cloneable {
 export class ExpenseCategory {
     title:string = ""
     color:string = "white"
-
-    constructor(_name:string, _color:string){
-        this.title = _name;
-        this.color = _color;
-    }
 }
 
 
 export class ExpenseChild {
-    category:ExpenseCategory=new ExpenseCategory("","")
+    category:ExpenseCategory=new ExpenseCategory()
     amount:number = 0
-}
+} 
 
 export class ExpenseItem {
-    description:string = "Default description"
+    description:string = ""
     date:string = ""
     user:string = ""
     id:number=-1
+    totalAmount:number=0
     child:ExpenseChild[] = []
-
-    private _totalAmount:number=0.
-
-    constructor(amount:number, description:string, date:string, category:ExpenseCategory, user:string, id:number){
-        this.description = description
-        this.date = date
-        this.id = id
-        this.user = user
-
-        let expenseChild = new ExpenseChild()
-        expenseChild.amount = amount
-        expenseChild.category = category
-        this.child.push(expenseChild)
-        this._totalAmount = amount
-    }
-
-    copyInto(expense:ExpenseItem){
-        this.description = expense.description
-        this.date = expense.date
-        this.id = expense.id
-        this.user = expense.user
-        this._totalAmount = expense._totalAmount
-        
-        for(let itm of this.child){
-            this.child.push(itm)
-        }
-    }
-
-    dupplicate(){
-        let expense = new ExpenseItem(this._totalAmount,this.description,this.date,this.child[0].category, this.user, this.id)
-        expense.child = []
-
-        for(let i of this.child)
-        {
-            expense.child.push(i)
-        }
-        expense.refreshTotalAmount()
-
-        return expense
-    }
-
-    addChildExpense(expense:ExpenseChild){
-        this.child.push(expense)
-        this._totalAmount += expense.amount
-    }
-
-    removeChildExpense(index:number){
-        this.child = this.child.filter((expenseItem, ind) => ind !== index)
-        this._totalAmount = this.getChildAmount()
-    }
-
-    refreshTotalAmount(){
-        this._totalAmount = this.getChildAmount()
-    }
-
-    getTotalAmount() {
-        return this._totalAmount
-    }
-
-    private getChildAmount(){
-        let num:number = 0
-        for(let item of this.child){
-            num = (num + item.amount)
-        }
-
-        console.log("Result " + num)
-
-        return num
-
-    }
 }
 
 export default class ExpensesModel {
