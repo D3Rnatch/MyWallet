@@ -107,7 +107,8 @@ export default defineComponent({
             state: Mode.List,
             tabs: "1",
             model: useExpenseModelStore().expenseModel,
-            expenseItm: new ExpenseItem()
+            expenseItm: new ExpenseItem(),
+            mounted: false
         }
     },
 
@@ -129,22 +130,22 @@ export default defineComponent({
                 <v-tab value="3" :disabled="disableTabs">Exports</v-tab>
         </v-tabs>
         <v-window v-model="tabs">
-            <v-window-item v-show="isList" value="1">
-                <v-container fluid>
-
-                <v-row><v-btn prepend-icon="mdi-plus" @click="onAddItem">Add</v-btn></v-row>
-                <v-row><UIExpenseList @editItem="onEditItem" ref="ExpenseListWidget"/></v-row>
-            </v-container>
-
+            <v-window-item value="1">
+                <v-container fluid v-show="isList">
+                    <v-row ><v-btn prepend-icon="mdi-plus" @click="onAddItem">Add</v-btn></v-row>
+                    <v-row ><UIExpenseList @editItem="onEditItem" ref="ExpenseListWidget"/></v-row>
+                </v-container>
+                <div v-show="isEdit">
+                    <UIExpenseDetail 
+                            :categories="model.categories" 
+                            :users="model.users" 
+                            @saveChanges="itemUpdated" 
+                            @deleteItem="itemDeleted" 
+                            @cancel="onCancelEdit"
+                            ref="ExpenseDetailWidget"/>
+                </div>
             </v-window-item>
             <v-window-item v-show="isEdit" value="1">
-                <UIExpenseDetail 
-                    :categories="model.categories" 
-                    :users="model.users" 
-                    @saveChanges="itemUpdated" 
-                    @deleteItem="itemDeleted" 
-                    @cancel="onCancelEdit"
-                    ref="ExpenseDetailWidget" id="ExpenseDetailWidget"/>
             </v-window-item>
             <v-window-item value="2" >
                 <v-card>

@@ -120,7 +120,8 @@ import { logicalExpression, moduleExpression } from '@babel/types'
       },
 
       mounted() {
-        // Do nothing
+        this.createItem()
+        console.log("UIExpenseDetail was mounted")
       }
   })
 </script>
